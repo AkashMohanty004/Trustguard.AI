@@ -16,18 +16,18 @@ async function askGroqJSON(systemPrompt, userPrompt) {
 
 exports.analyzeUrl = async (url) => {
     try {
-        const systemPrompt = `You are a cybersecurity expert analyzing URLs. Do NOT flag standard personal websites, portfolios (e.g. yourname.com), or normal domains as scams just because they are unfamiliar. Only flag URLs if they show clear signs of typo-squatting, malicious extensions, random alphanumeric patterns, or brand impersonation. Provide output ONLY as JSON with exactly these keys: "trustScore" (integer 0-100), "riskLevel" ("Low", "Medium", "High", or "Critical"), and "details" (an array of string explanations).`;
+        const systemPrompt = `You are a cybersecurity expert analyzing URLs. Do NOT flag standard personal websites, portfolios (e.g. yourname.com), or normal domains as scams just because they are unfamiliar. Only flag URLs if they show clear signs of typo-squatting, malicious extensions, random alphanumeric patterns, or brand impersonation. Provide output ONLY as JSON with exactly these keys: "trustScore" (integer 0-100), "riskLevel" ("Low", "Medium", "High", or "Critical"), and "flags" (an array of string explanations).`;
         const userPrompt = `Analyze this URL for phishing or suspicious patterns: ${url}`;
         const result = await askGroqJSON(systemPrompt, userPrompt);
         return {
             url,
             trustScore: result.trustScore ?? 50,
             riskLevel: result.riskLevel || "Medium",
-            details: result.details || ["Unable to extract detailed analysis."]
+            flags: result.flags || result.details || ["Unable to extract detailed analysis."]
         };
     } catch (error) {
         console.error("Groq AI Error (analyzeUrl):", error);
-        return { url, trustScore: 0, riskLevel: "Critical", details: ["AI Analysis Failed. Please check API Key and connection."] };
+        return { url, trustScore: 0, riskLevel: "Critical", flags: ["AI Analysis Failed. Please check API Key and connection."] };
     }
 };
 

@@ -110,7 +110,7 @@ const AnalyzerPage = () => {
           <AlertCard 
             title="Analysis Summary" 
             type={result.trustScore < 50 ? 'danger' : 'info'}
-            description={(result.details || result.flags)?.join(' | ') || 'Analysis complete.'} 
+            description={Array.isArray(result.details || result.flags) ? (result.details || result.flags).join(' | ') : (result.details || result.flags || 'Analysis complete.')} 
           />
         </motion.div>
       )}

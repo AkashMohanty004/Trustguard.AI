@@ -45,7 +45,7 @@ const Footer = () => {
         borderTop: '1px solid rgba(255, 255, 255, 0.05)', color: 'var(--text-muted)', fontSize: '0.85rem'
       }}>
         <div style={{ marginBottom: '8px' }}>&copy; {new Date().getFullYear()} TrustGuard AI. All rights reserved.</div>
-        <div>In Collaboration with <a href="https://debasmit.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-primary)', textDecoration: 'none', fontWeight: '500' }}>debasmit.com</a></div>
+
       </div>
     </footer>
   );
